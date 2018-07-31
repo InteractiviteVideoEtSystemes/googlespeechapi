@@ -7,7 +7,7 @@ Group: Development/Library
 License: Apache 2.0
 URL: https://grpc.io/
 Source0: https://github.com/grpc/grpc/archive/v1.11.1.tar.gz
-
+Source1: https://github.com/InteractiviteVideoEtSystemes/googlespeechapi/raw/master/Makefile.grpc
 
 BuildRequires: protobuf-devel, gtest-devel, gperftools-devel
 
@@ -23,9 +23,13 @@ Google RPC framework headers
 
 %prep
 cd $RPM_SOURCE_DIR
-#rm -rf grpc-* v*
-#wget https://github.com/grpc/grpc/archive/v%{version}.tar.gz
-#tar xzf v%{version}.tar.gz
+rm -rf grpc-* v*
+wget https://github.com/grpc/grpc/archive/v%{version}.tar.gz
+tar xzf v%{version}.tar.gz
+cd $RPM_SOURCE_DIR/grpc-%{version}
+wget https://github.com/InteractiviteVideoEtSystemes/googlespeechapi/raw/master/Makefile.grpc
+rm -f Makefile
+mv Makefile.grpc Makefile
 
 %build
 cd $RPM_SOURCE_DIR/grpc-%{version}
@@ -93,9 +97,9 @@ sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/opt/google/lib/pkgconfig/grpc++_
 %doc
 
 %clean
-#cd $RPM_SOURCE_DIR
-#rm -rf grpc*
-#rm -f v%{version}.*
+cd $RPM_SOURCE_DIR
+rm -rf grpc*
+rm -f v%{version}.*
 
 %changelog
 
