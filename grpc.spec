@@ -1,6 +1,6 @@
 Name:	grpc
 Version: 1.11.1	
-Release: 1.ives%{?dist}
+Release: 2.ives%{?dist}
 Summary: Google RPC framework
 
 Group: Development/Library
@@ -17,6 +17,7 @@ Google speech API compiled with all its dependencies
 
 %package devel
 Summary: Header and static lib for GRPC library
+Requires: %{name}
 
 %description devel
 Google RPC framework headers
@@ -33,66 +34,66 @@ mv Makefile.grpc Makefile
 
 %build
 cd $RPM_SOURCE_DIR/grpc-%{version}
-make prefix=%{buildroot}/opt/google
+make prefix=%{buildroot}/usr/local
 
 
 %install
 cd $RPM_SOURCE_DIR/grpc-%{version}
-make install prefix=%{buildroot}/opt/google
-sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/opt/google/lib/pkgconfig/grpc.pc
-sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/opt/google/lib/pkgconfig/grpc++.pc
-sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/opt/google/lib/pkgconfig/grpc_unsecure.pc
-sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/opt/google/lib/pkgconfig/grpc++_unsecure.pc
+make install prefix=%{buildroot}/usr/local
+sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/usr/local/lib/pkgconfig/grpc.pc
+sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/usr/local/lib/pkgconfig/grpc++.pc
+sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/usr/local/lib/pkgconfig/grpc_unsecure.pc
+sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/usr/local/lib/pkgconfig/grpc++_unsecure.pc
 
 %files
-/opt/google/lib/libgrpc++.so
-/opt/google/lib/libgrpc++.so.1.11.1
-/opt/google/lib/libgrpc++.so.6
-/opt/google/lib/libgrpc_cronet.so
-/opt/google/lib/libgrpc_cronet.so.6
-/opt/google/lib/libgrpc_cronet.so.6.0.0
-/opt/google/lib/libgrpc_unsecure.so
-/opt/google/lib/libgrpc_unsecure.so.6
-/opt/google/lib/libgrpc_unsecure.so.6.0.0
-/opt/google/lib/libgrpc++_cronet.so
-/opt/google/lib/libgrpc++_cronet.so.1.11.1
-/opt/google/lib/libgrpc++_cronet.so.6
-/opt/google/lib/libgrpc++_error_details.so
-/opt/google/lib/libgrpc++_error_details.so.1.11.1
-/opt/google/lib/libgrpc++_error_details.so.6
-/opt/google/lib/libgrpc++_reflection.so
-/opt/google/lib/libgrpc++_reflection.so.1.11.1
-/opt/google/lib/libgrpc++_reflection.so.6
-/opt/google/lib/libgrpc++_unsecure.so
-/opt/google/lib/libgrpc++_unsecure.so.1.11.1
-/opt/google/lib/libgrpc++_unsecure.so.6
-/opt/google/lib/pkgconfig/*.pc
-/opt/google/lib/libgpr.so
-/opt/google/lib/libgpr.so.6
-/opt/google/lib/libgpr.so.6.0.0
-/opt/google/lib/libgrpc.so
-/opt/google/lib/libgrpc.so.6
-/opt/google/lib/libgrpc.so.6.0.0
-/opt/google/lib/libaddress_sorting.so
-/opt/google/lib/libaddress_sorting.so.6
-/opt/google/lib/libaddress_sorting.so.6.0.0
-/opt/google/bin/grpc_*
-/opt/google/share/grpc/roots.pem
+/usr/local/lib/libgrpc++.so
+/usr/local/lib/libgrpc++.so.1.11.1
+/usr/local/lib/libgrpc++.so.6
+/usr/local/lib/libgrpc_cronet.so
+/usr/local/lib/libgrpc_cronet.so.6
+/usr/local/lib/libgrpc_cronet.so.6.0.0
+/usr/local/lib/libgrpc_unsecure.so
+/usr/local/lib/libgrpc_unsecure.so.6
+/usr/local/lib/libgrpc_unsecure.so.6.0.0
+/usr/local/lib/libgrpc++_cronet.so
+/usr/local/lib/libgrpc++_cronet.so.1.11.1
+/usr/local/lib/libgrpc++_cronet.so.6
+/usr/local/lib/libgrpc++_error_details.so
+/usr/local/lib/libgrpc++_error_details.so.1.11.1
+/usr/local/lib/libgrpc++_error_details.so.6
+/usr/local/lib/libgrpc++_reflection.so
+/usr/local/lib/libgrpc++_reflection.so.1.11.1
+/usr/local/lib/libgrpc++_reflection.so.6
+/usr/local/lib/libgrpc++_unsecure.so
+/usr/local/lib/libgrpc++_unsecure.so.1.11.1
+/usr/local/lib/libgrpc++_unsecure.so.6
+/usr/local/lib/pkgconfig/*.pc
+/usr/local/lib/libgpr.so
+/usr/local/lib/libgpr.so.6
+/usr/local/lib/libgpr.so.6.0.0
+/usr/local/lib/libgrpc.so
+/usr/local/lib/libgrpc.so.6
+/usr/local/lib/libgrpc.so.6.0.0
+/usr/local/lib/libaddress_sorting.so
+/usr/local/lib/libaddress_sorting.so.6
+/usr/local/lib/libaddress_sorting.so.6.0.0
+/usr/local/bin/grpc_*
+/usr/local/share/grpc/roots.pem
 
 %files devel
-/opt/google/lib/libgrpc++.a
-/opt/google/lib/libgrpc++_cronet.a
-/opt/google/lib/libgrpc++_error_details.a
-/opt/google/lib/libgrpc++_reflection.a
-/opt/google/lib/libgrpc++_unsecure.a
-/opt/google/lib/libgpr.a
-/opt/google/lib/libgrpc.a
-/opt/google/lib/libaddress_sorting.a
-/opt/google/lib/libgrpc_cronet.a
-/opt/google/lib/libgrpc_unsecure.a
-/opt/google/include/grpc/
-/opt/google/include/grpc++/
-/opt/google/include/grpcpp/
+/usr/local/lib/libgrpc++.a
+/usr/local/lib/libgrpc++_cronet.a
+/usr/local/lib/libgrpc++_error_details.a
+/usr/local/lib/libgrpc++_reflection.a
+/usr/local/lib/libgrpc++_unsecure.a
+/usr/local/lib/libgpr.a
+/usr/local/lib/libgrpc.a
+/usr/local/lib/libaddress_sorting.a
+/usr/local/lib/libgrpc_cronet.a
+/usr/local/lib/libgrpc_unsecure.a
+/usr/local/include/grpc/
+/usr/local/include/grpc++/
+/usr/local/include/grpcpp/
 
 %doc
 
