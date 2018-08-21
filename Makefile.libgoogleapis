@@ -31,14 +31,14 @@ GOOGLEAPIS_CCS = $(GOOGLEAPIS_API_CCS) $(GOOGLEAPIS_RPC_CCS) \
 HOST_SYSTEM = $(shell uname | cut -f 1 -d_)
 SYSTEM ?= $(HOST_SYSTEM)
 CXX = g++
-CPPFLAGS += -I/opt/google/include -pthread -I$(GOOGLEAPIS_GENS_PATH)
+CPPFLAGS += -I/usr/local/include -pthread -I$(GOOGLEAPIS_GENS_PATH)
 CXXFLAGS += -std=c++11 -fPIC
 ifeq ($(SYSTEM),Darwin)
 LDFLAGS += -L/usr/local/lib `pkg-config --libs grpc++ grpc`       \
            -lgrpc++_reflection                                    \
            -lprotobuf -lpthread -ldl
 else
-LDFLAGS += -L/opt/google/lib `pkg-config --libs grpc++ grpc`       \
+LDFLAGS += -L/usr/local/lib `pkg-config --libs grpc++ grpc`       \
            -Wl,--no-as-needed -lgrpc++_reflection -Wl,--as-needed \
            -lprotobuf -lpthread -ldl
 endif

@@ -23,22 +23,22 @@ wget https://github.com/InteractiviteVideoEtSystemes/googlespeechapi/raw/master/
 %build
 cd $RPM_SOURCE_DIR
 cd googleapis
-make GRPCPLUGIN=/opt/google/bin/grpc_cpp_plugin
+make GRPCPLUGIN=/usr/local/bin/grpc_cpp_plugin
 make -f Makefile.libgoogleapis GOOGLEAPIS_GENS_PATH=./gens
 
 
 %install
 cd $RPM_SOURCE_DIR
 cd googleapis
-mkdir -p $RPM_BUILD_ROOT/opt/google/lib
-cp libgoogleapis.a $RPM_BUILD_ROOT/opt/google/lib
+mkdir -p $RPM_BUILD_ROOT/usr/local/lib
+cp libgoogleapis.a $RPM_BUILD_ROOT/usr/local/lib
 make -f Makefile.libgoogleapis clean
-mkdir -p $RPM_BUILD_ROOT/opt/google/apis
-cp -rp gens/* $RPM_BUILD_ROOT/opt/google/apis/
+mkdir -p $RPM_BUILD_ROOT/usr/local/google/apis
+cp -rp gens/* $RPM_BUILD_ROOT/usr/local/google/apis/
 
 %files
-/opt/google/lib/libgoogleapis.a
-/opt/google/apis/
+/usr/local/lib/libgoogleapis.a
+/usr/local/google/apis/
 
 %doc
 
