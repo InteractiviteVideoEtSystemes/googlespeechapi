@@ -1,6 +1,6 @@
 Name:	grpc
 Version: 1.11.1	
-Release: 2.ives%{?dist}
+Release: 3.ives%{?dist}
 Summary: Google RPC framework
 
 Group: Development/Library
@@ -101,6 +101,10 @@ sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/usr/local/lib/pkgconfig/grpc++_u
 cd $RPM_SOURCE_DIR
 rm -rf grpc*
 rm -f v%{version}.*
+
+%post
+ln -s /usr/local/lib/libgrpc++.so.1.11.1 /usr/local/lib/libgrpc++.so.1
+ln -s /usr/local/lib/libgrpc++_reflection.so.1.11.1 /usr/local/lib/libgrpc++_reflection.so.1
 
 %changelog
 
