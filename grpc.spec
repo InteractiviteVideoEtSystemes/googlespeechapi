@@ -1,5 +1,5 @@
 Name:	grpc
-Version: 1.11.1	
+Version: 1.11.0-pre1
 Release: 3.ives%{?dist}
 Summary: Google RPC framework
 
