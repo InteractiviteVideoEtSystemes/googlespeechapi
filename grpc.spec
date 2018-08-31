@@ -1,5 +1,7 @@
+%define version_tag 1.11.0-pre1
+
 Name:	grpc
-Version: 1.11.0-pre1
+Version: 1.11.0pre1
 Release: 3.ives%{?dist}
 Summary: Google RPC framework
 
@@ -23,22 +25,23 @@ Requires: %{name}
 Google RPC framework headers
 
 %prep
+
 cd $RPM_SOURCE_DIR
 rm -rf grpc-* v*
-wget https://github.com/grpc/grpc/archive/v%{version}.tar.gz
-tar xzf v%{version}.tar.gz
-cd $RPM_SOURCE_DIR/grpc-%{version}
+wget https://github.com/grpc/grpc/archive/v%{version_tag}.tar.gz
+tar xzf v%{version_tag}.tar.gz
+cd $RPM_SOURCE_DIR/grpc-%{version_tag}
 wget https://github.com/InteractiviteVideoEtSystemes/googlespeechapi/raw/master/Makefile.grpc
 rm -f Makefile
 mv Makefile.grpc Makefile
 
 %build
-cd $RPM_SOURCE_DIR/grpc-%{version}
+cd $RPM_SOURCE_DIR/grpc-%{version_tag}
 make prefix=%{buildroot}/usr/local
 
 
 %install
-cd $RPM_SOURCE_DIR/grpc-%{version}
+cd $RPM_SOURCE_DIR/grpc-%{version_tag}
 make install prefix=%{buildroot}/usr/local
 sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/usr/local/lib/pkgconfig/grpc.pc
 sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/usr/local/lib/pkgconfig/grpc++.pc
