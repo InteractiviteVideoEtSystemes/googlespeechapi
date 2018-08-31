@@ -50,36 +50,36 @@ sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/usr/local/lib/pkgconfig/grpc++_u
 
 %files
 /usr/local/lib/libgrpc++.so
-/usr/local/lib/libgrpc++.so.1.11.1
+/usr/local/lib/libgrpc++.so.1.11.0-pre1
 /usr/local/lib/libgrpc++.so.6
 /usr/local/lib/libgrpc_cronet.so
 /usr/local/lib/libgrpc_cronet.so.6
-/usr/local/lib/libgrpc_cronet.so.6.0.0
+/usr/local/lib/libgrpc_cronet.so.6.0.0-pre1
 /usr/local/lib/libgrpc_unsecure.so
 /usr/local/lib/libgrpc_unsecure.so.6
-/usr/local/lib/libgrpc_unsecure.so.6.0.0
+/usr/local/lib/libgrpc_unsecure.so.6.0.0-pre1
 /usr/local/lib/libgrpc++_cronet.so
-/usr/local/lib/libgrpc++_cronet.so.1.11.1
+/usr/local/lib/libgrpc++_cronet.so.1.11.0-pre1
 /usr/local/lib/libgrpc++_cronet.so.6
 /usr/local/lib/libgrpc++_error_details.so
-/usr/local/lib/libgrpc++_error_details.so.1.11.1
+/usr/local/lib/libgrpc++_error_details.so.1.11.0-pre1
 /usr/local/lib/libgrpc++_error_details.so.6
 /usr/local/lib/libgrpc++_reflection.so
-/usr/local/lib/libgrpc++_reflection.so.1.11.1
+/usr/local/lib/libgrpc++_reflection.so.1.11.0-pre1
 /usr/local/lib/libgrpc++_reflection.so.6
 /usr/local/lib/libgrpc++_unsecure.so
-/usr/local/lib/libgrpc++_unsecure.so.1.11.1
+/usr/local/lib/libgrpc++_unsecure.so.1.11.0-pre1
 /usr/local/lib/libgrpc++_unsecure.so.6
 /usr/local/lib/pkgconfig/*.pc
 /usr/local/lib/libgpr.so
 /usr/local/lib/libgpr.so.6
-/usr/local/lib/libgpr.so.6.0.0
+/usr/local/lib/libgpr.so.6.0.0-pre1
 /usr/local/lib/libgrpc.so
 /usr/local/lib/libgrpc.so.6
-/usr/local/lib/libgrpc.so.6.0.0
+/usr/local/lib/libgrpc.so.6.0.0-pre1
 /usr/local/lib/libaddress_sorting.so
 /usr/local/lib/libaddress_sorting.so.6
-/usr/local/lib/libaddress_sorting.so.6.0.0
+/usr/local/lib/libaddress_sorting.so.6.0.0-pre1
 /usr/local/bin/grpc_*
 /usr/local/share/grpc/roots.pem
 
@@ -106,8 +106,8 @@ rm -rf grpc*
 rm -f v%{version}.*
 
 %post
-ln -s /usr/local/lib/libgrpc++.so.1.11.1 /usr/local/lib/libgrpc++.so.1
-ln -s /usr/local/lib/libgrpc++_reflection.so.1.11.1 /usr/local/lib/libgrpc++_reflection.so.1
+ln -s /usr/local/lib/libgrpc++.so.1.11.0-pre1 /usr/local/lib/libgrpc++.so.1
+ln -s /usr/local/lib/libgrpc++_reflection.so.1.11.0-pre1 /usr/local/lib/libgrpc++_reflection.so.1
 
 %changelog
 
