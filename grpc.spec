@@ -106,6 +106,7 @@ rm -rf grpc*
 rm -f v%{version}.*
 
 %post
+rm -f /usr/local/lib/libgrpc++.so.1 /usr/local/lib/libgrpc++_reflection.so.1
 ln -s /usr/local/lib/libgrpc++.so.1.11.0-pre1 /usr/local/lib/libgrpc++.so.1
 ln -s /usr/local/lib/libgrpc++_reflection.so.1.11.0-pre1 /usr/local/lib/libgrpc++_reflection.so.1
 
