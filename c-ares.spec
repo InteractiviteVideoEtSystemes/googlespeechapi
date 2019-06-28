@@ -1,7 +1,7 @@
 Summary: A library that performs asynchronous DNS operations
 Name: c-ares
 Version: 1.15.0
-Release: 1.ives{?dist}
+Release: 1.ives%{?dist}
 License: MIT
 Group: System Environment/Libraries
 URL: http://c-ares.haxx.se/
@@ -16,6 +16,8 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: libtool
+
+%define gittag cares-1_15_0
 
 %description
 c-ares is a C library that performs DNS requests and name resolves 
@@ -33,13 +35,15 @@ This package contains the header files and libraries needed to
 compile applications or shared objects that use c-ares.
 
 %prep
+rm -rf c-ares
 git clone https://github.com/c-ares/c-ares
 cd c-ares
-git checkout %{version}
+git checkout %{gittag}
+libtoolize
+autoreconf -if
 
 %build
 cd c-ares
-autoreconf -if
 %configure --enable-shared --disable-static \
            --disable-dependency-tracking
 make
@@ -59,7 +63,6 @@ rm -rf c-ares
 
 %files
 %defattr(-, root, root)
-%doc README README.cares CHANGES NEWS LICENSE
 %{_libdir}/*.so.*
 
 %files devel
@@ -74,6 +77,10 @@ rm -rf c-ares
 %{_mandir}/man3/ares_*
 
 %changelog
+* Fri Jun 28 2019 Emmanuel BUU <emmanuel.buu@ives.fr> 1.15.0.1
+- packaging new version.
+- using git
+
 * Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 1.10.0-3
 - Mass rebuild 2014-01-24
 
