@@ -1,5 +1,5 @@
 Name:	protobuf
-Version: 3.5.1	
+Version: 3.8.0	
 Release: 1.ives%{?dist}
 Summary: RPC base API for Google Cloud speech services	
 
