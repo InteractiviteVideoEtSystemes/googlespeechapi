@@ -42,11 +42,11 @@ make install DESTDIR=%{buildroot}
 /usr/bin/protoc
 %{_libdir}/libprotoc.*
 %{_libdir}/libprotobuf-lite.so
-%{_libdir}/libprotobuf-lite.so.15
-%{_libdir}/libprotobuf-lite.so.15.0.1
+%{_libdir}/libprotobuf-lite.so.19
+%{_libdir}/libprotobuf-lite.so.19.0.0
 %{_libdir}/libprotobuf.so
-%{_libdir}/libprotobuf.so.15
-%{_libdir}/libprotobuf.so.15.0.1
+%{_libdir}/libprotobuf.so.19
+%{_libdir}/libprotobuf.so.19.0.0
 %{_libdir}/pkgconfig/protobuf.pc
 %{_libdir}/pkgconfig/protobuf-lite.pc
 
