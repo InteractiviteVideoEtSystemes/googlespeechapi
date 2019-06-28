@@ -31,7 +31,8 @@ rm -rf grpc-* v*
 wget https://github.com/grpc/grpc/archive/v%{version_tag}.tar.gz
 tar xzf v%{version_tag}.tar.gz
 cd $RPM_SOURCE_DIR/grpc-%{version_tag}
-wget https://github.com/InteractiviteVideoEtSystemes/googlespeechapi/raw/master/Makefile.grpc
+wget https://github.com/InteractiviteVideoEtSystemes/googlespeechapi/raw/master/gprc-makefile.patch
+patch -p0 < gprc-makefile.patch
 #rm -f Makefile
 #mv Makefile.grpc Makefile
 
