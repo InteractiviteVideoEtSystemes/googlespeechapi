@@ -1,8 +1,8 @@
-%define version_tag 1.11.0-pre1
+%define version_tag 1.21.3
 
 Name:	grpc
-Version: 1.11.0pre1
-Release: 3.ives%{?dist}
+Version: 1.21.3
+Release: 1.ives%{?dist}
 Summary: Google RPC framework
 
 Group: Development/Library
@@ -32,8 +32,8 @@ wget https://github.com/grpc/grpc/archive/v%{version_tag}.tar.gz
 tar xzf v%{version_tag}.tar.gz
 cd $RPM_SOURCE_DIR/grpc-%{version_tag}
 wget https://github.com/InteractiviteVideoEtSystemes/googlespeechapi/raw/master/Makefile.grpc
-rm -f Makefile
-mv Makefile.grpc Makefile
+#rm -f Makefile
+#mv Makefile.grpc Makefile
 
 %build
 cd $RPM_SOURCE_DIR/grpc-%{version_tag}
@@ -50,36 +50,26 @@ sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/usr/local/lib/pkgconfig/grpc++_u
 
 %files
 /usr/local/lib/libgrpc++.so
-/usr/local/lib/libgrpc++.so.1.11.0-pre1
-/usr/local/lib/libgrpc++.so.6
+/usr/local/lib/libgrpc++.so.*
 /usr/local/lib/libgrpc_cronet.so
-/usr/local/lib/libgrpc_cronet.so.6
-/usr/local/lib/libgrpc_cronet.so.6.0.0-pre1
+/usr/local/lib/libgrpc_cronet.so.*
 /usr/local/lib/libgrpc_unsecure.so
-/usr/local/lib/libgrpc_unsecure.so.6
-/usr/local/lib/libgrpc_unsecure.so.6.0.0-pre1
+/usr/local/lib/libgrpc_unsecure.so.*
 /usr/local/lib/libgrpc++_cronet.so
-/usr/local/lib/libgrpc++_cronet.so.1.11.0-pre1
-/usr/local/lib/libgrpc++_cronet.so.6
+/usr/local/lib/libgrpc++_cronet.so.*
 /usr/local/lib/libgrpc++_error_details.so
-/usr/local/lib/libgrpc++_error_details.so.1.11.0-pre1
-/usr/local/lib/libgrpc++_error_details.so.6
+/usr/local/lib/libgrpc++_error_details.so.*
 /usr/local/lib/libgrpc++_reflection.so
-/usr/local/lib/libgrpc++_reflection.so.1.11.0-pre1
-/usr/local/lib/libgrpc++_reflection.so.6
+/usr/local/lib/libgrpc++_reflection.so.*
 /usr/local/lib/libgrpc++_unsecure.so
-/usr/local/lib/libgrpc++_unsecure.so.1.11.0-pre1
-/usr/local/lib/libgrpc++_unsecure.so.6
+/usr/local/lib/libgrpc++_unsecure.so.*
 /usr/local/lib/pkgconfig/*.pc
 /usr/local/lib/libgpr.so
-/usr/local/lib/libgpr.so.6
-/usr/local/lib/libgpr.so.6.0.0-pre1
+/usr/local/lib/libgpr.so.*
 /usr/local/lib/libgrpc.so
-/usr/local/lib/libgrpc.so.6
-/usr/local/lib/libgrpc.so.6.0.0-pre1
+/usr/local/lib/libgrpc.so.*
 /usr/local/lib/libaddress_sorting.so
-/usr/local/lib/libaddress_sorting.so.6
-/usr/local/lib/libaddress_sorting.so.6.0.0-pre1
+/usr/local/lib/libaddress_sorting.so.*
 /usr/local/bin/grpc_*
 /usr/local/share/grpc/roots.pem
 
@@ -107,8 +97,8 @@ rm -f v%{version}.*
 
 %post
 rm -f /usr/local/lib/libgrpc++.so.1 /usr/local/lib/libgrpc++_reflection.so.1
-ln -s /usr/local/lib/libgrpc++.so.1.11.0-pre1 /usr/local/lib/libgrpc++.so.1
-ln -s /usr/local/lib/libgrpc++_reflection.so.1.11.0-pre1 /usr/local/lib/libgrpc++_reflection.so.1
+ln -s /usr/local/lib/libgrpc++.so.%{version} /usr/local/lib/libgrpc++.so.1
+ln -s /usr/local/lib/libgrpc++_reflection.so.%{version} /usr/local/lib/libgrpc++_reflection.so.1
 
 %changelog
 
