@@ -1,54 +1,21 @@
---- Makefile.orig	2018-03-27 14:32:33.823421153 -0400
-+++ Makefile	2018-03-27 14:47:22.699379720 -0400
-@@ -2680,6 +2680,14 @@
- 	$(E) "[INSTALL] Installing public C++ headers"
- 	$(Q) $(foreach h, $(PUBLIC_HEADERS_CXX), $(INSTALL) -d $(prefix)/$(dir $(h)) && ) exit 0 || exit 1
- 	$(Q) $(foreach h, $(PUBLIC_HEADERS_CXX), $(INSTALL) $(h) $(prefix)/$(h) && ) exit 0 || exit 1
-+	$(Q) $(foreach h, $(PUBLIC_HEADERS_CXX1), $(INSTALL) -d $(prefix)/$(dir $(h)) && ) exit 0 || exit 1
-+	$(Q) $(foreach h, $(PUBLIC_HEADERS_CXX1), $(INSTALL) $(h) $(prefix)/$(h) && ) exit 0 || exit 1
-+	$(Q) $(foreach h, $(PUBLIC_HEADERS_CXX2), $(INSTALL) -d $(prefix)/$(dir $(h)) && ) exit 0 || exit 1
-+	$(Q) $(foreach h, $(PUBLIC_HEADERS_CXX2), $(INSTALL) $(h) $(prefix)/$(h) && ) exit 0 || exit 1
-+	$(Q) $(foreach h, $(PUBLIC_HEADERS_CXX3), $(INSTALL) -d $(prefix)/$(dir $(h)) && ) exit 0 || exit 1
-+	$(Q) $(foreach h, $(PUBLIC_HEADERS_CXX3), $(INSTALL) $(h) $(prefix)/$(h) && ) exit 0 || exit 1
-+	$(Q) $(foreach h, $(PUBLIC_HEADERS_CXX4), $(INSTALL) -d $(prefix)/$(dir $(h)) && ) exit 0 || exit 1
-+	$(Q) $(foreach h, $(PUBLIC_HEADERS_CXX4), $(INSTALL) $(h) $(prefix)/$(h) && ) exit 0 || exit 1
- 
- install-static: install-static_c install-static_cxx
- 
-@@ -4672,6 +4680,8 @@
-     include/grpc++/support/stub_options.h \
-     include/grpc++/support/sync_stream.h \
-     include/grpc++/support/time.h \
-+
-+PUBLIC_HEADERS_CXX1 += \
-     include/grpcpp/alarm.h \
-     include/grpcpp/channel.h \
-     include/grpcpp/client_context.h \
-@@ -4717,6 +4727,8 @@
-     include/grpcpp/support/stub_options.h \
-     include/grpcpp/support/sync_stream.h \
-     include/grpcpp/support/time.h \
-+
-+PUBLIC_HEADERS_CXX2 += \
-     include/grpc/support/alloc.h \
-     include/grpc/support/atm.h \
-     include/grpc/support/atm_gcc_atomic.h \
-@@ -4767,6 +4779,8 @@
-     include/grpc/impl/codegen/propagation_bits.h \
-     include/grpc/impl/codegen/slice.h \
-     include/grpc/impl/codegen/status.h \
-+
-+PUBLIC_HEADERS_CXX3 += \
-     include/grpc++/impl/codegen/async_stream.h \
-     include/grpc++/impl/codegen/async_unary_call.h \
-     include/grpc++/impl/codegen/byte_buffer.h \
-@@ -4797,6 +4813,8 @@
-     include/grpc++/impl/codegen/stub_options.h \
-     include/grpc++/impl/codegen/sync_stream.h \
-     include/grpc++/impl/codegen/time.h \
-+
-+PUBLIC_HEADERS_CXX4 += \
-     include/grpcpp/impl/codegen/async_stream.h \
-     include/grpcpp/impl/codegen/async_unary_call.h \
-     include/grpcpp/impl/codegen/byte_buffer.h \
-
+2985a2986,2993
+> 	$(Q) $(foreach h, $(PUBLIC_HEADERS_CXX1), $(INSTALL) -d $(prefix)/$(dir $(h)) && ) exit 0 || exit 1
+> 	$(Q) $(foreach h, $(PUBLIC_HEADERS_CXX1), $(INSTALL) $(h) $(prefix)/$(h) && ) exit 0 || exit 1
+> 	$(Q) $(foreach h, $(PUBLIC_HEADERS_CXX2), $(INSTALL) -d $(prefix)/$(dir $(h)) && ) exit 0 || exit 1
+> 	$(Q) $(foreach h, $(PUBLIC_HEADERS_CXX2), $(INSTALL) $(h) $(prefix)/$(h) && ) exit 0 || exit 1
+> 	$(Q) $(foreach h, $(PUBLIC_HEADERS_CXX3), $(INSTALL) -d $(prefix)/$(dir $(h)) && ) exit 0 || exit 1
+> 	$(Q) $(foreach h, $(PUBLIC_HEADERS_CXX3), $(INSTALL) $(h) $(prefix)/$(h) && ) exit 0 || exit 1
+> 	$(Q) $(foreach h, $(PUBLIC_HEADERS_CXX4), $(INSTALL) -d $(prefix)/$(dir $(h)) && ) exit 0 || exit 1
+> 	$(Q) $(foreach h, $(PUBLIC_HEADERS_CXX4), $(INSTALL) $(h) $(prefix)/$(h) && ) exit 0 || exit 1
+5440a5449,5450
+> 
+> PUBLIC_HEADERS_CXX1 += \
+5509a5520,5521
+> 
+> PUBLIC_HEADERS_CXX2 += \
+5560a5573,5574
+> 
+> PUBLIC_HEADERS_CXX3 += \
+5590a5605,5606
+> 
+> PUBLIC_HEADERS_CXX4 += \
