@@ -74,6 +74,8 @@ sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/usr/local/lib/pkgconfig/grpc++_u
 /usr/local/lib/libaddress_sorting.so.*
 /usr/local/bin/grpc_*
 /usr/local/share/grpc/roots.pem
+/usr/local/lib/libgrpcpp_channelz.so
+/usr/local/lib/libgrpcpp_channelz.so.*
 
 %files devel
 /usr/local/lib/libgrpc++.a
@@ -86,6 +88,7 @@ sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/usr/local/lib/pkgconfig/grpc++_u
 /usr/local/lib/libaddress_sorting.a
 /usr/local/lib/libgrpc_cronet.a
 /usr/local/lib/libgrpc_unsecure.a
+/usr/local/lib/libgrpcpp_channelz.a
 /usr/local/include/grpc/
 /usr/local/include/grpc++/
 /usr/local/include/grpcpp/
