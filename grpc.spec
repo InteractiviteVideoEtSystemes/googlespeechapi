@@ -44,6 +44,7 @@ make prefix=%{buildroot}/usr/local
 %install
 cd $RPM_SOURCE_DIR/grpc-%{version_tag}
 make install prefix=%{buildroot}/usr/local
+sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/usr/local/lib/pkgconfig/gpr.pc
 sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/usr/local/lib/pkgconfig/grpc.pc
 sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/usr/local/lib/pkgconfig/grpc++.pc
 sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/usr/local/lib/pkgconfig/grpc_unsecure.pc
