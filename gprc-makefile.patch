@@ -1,5 +1,14 @@
 --- Makefile.ori	2019-06-28 20:04:05.856164443 +0000
-+++ Makefile	2019-06-28 20:34:11.103572324 +0000
++++ Makefile	2019-07-01 08:11:20.030108206 +0000
+@@ -360,7 +360,7 @@
+ CPPFLAGS += $(CPPFLAGS_$(CONFIG))
+ CFLAGS += $(CFLAGS_$(CONFIG))
+ CXXFLAGS += $(CXXFLAGS_$(CONFIG))
+-DEFINES += $(DEFINES_$(CONFIG)) INSTALL_PREFIX=\"$(prefix)\"
++DEFINES += $(DEFINES_$(CONFIG)) INSTALL_PREFIX=\"/usr/local\"
+ LDFLAGS += $(LDFLAGS_$(CONFIG))
+ 
+ ifneq ($(SYSTEM),MINGW32)
 @@ -2983,6 +2983,14 @@
  	$(E) "[INSTALL] Installing public C++ headers"
  	$(Q) $(foreach h, $(PUBLIC_HEADERS_CXX), $(INSTALL) -d $(prefix)/$(dir $(h)) && ) exit 0 || exit 1
