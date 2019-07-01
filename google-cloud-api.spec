@@ -1,5 +1,5 @@
 Name:	libgoogleapis
-Version: 1.0.0	
+Version: 1.1.0	
 Release: 2%{?dist}
 Summary: RPC base API for Google Cloud speech services	
 
@@ -17,14 +17,15 @@ cd $RPM_SOURCE_DIR
 rm -rf googleapis
 git clone git@github.com:googleapis/googleapis.git
 cd googleapis
-git checkout 01d7d7d21ab5b8610f351b11552dff2caf0c0a23
+git checkout 84c8ad4e52f8eec8f08a60636cfa597b86969b5c
 wget https://github.com/InteractiviteVideoEtSystemes/googlespeechapi/raw/master/Makefile.libgoogleapis
 
 %build
 cd $RPM_SOURCE_DIR
 cd googleapis
 make GRPCPLUGIN=/usr/local/bin/grpc_cpp_plugin
-make -f Makefile.libgoogleapis GOOGLEAPIS_GENS_PATH=./gens
+#make -f Makefile.libgoogleapis GOOGLEAPIS_GENS_PATH=./gens
+make -f Makefile GOOGLEAPIS_GENS_PATH=./gens
 
 
 %install
