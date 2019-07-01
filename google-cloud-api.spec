@@ -24,8 +24,7 @@ wget https://github.com/InteractiviteVideoEtSystemes/googlespeechapi/raw/master/
 cd $RPM_SOURCE_DIR
 cd googleapis
 make GRPCPLUGIN=/usr/local/bin/grpc_cpp_plugin
-#make -f Makefile.libgoogleapis GOOGLEAPIS_GENS_PATH=./gens
-make -f Makefile GOOGLEAPIS_GENS_PATH=./gens
+make -f Makefile.libgoogleapis GOOGLEAPIS_GENS_PATH=./gens
 
 
 %install
