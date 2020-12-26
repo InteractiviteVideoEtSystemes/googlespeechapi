@@ -1,14 +1,14 @@
-%define version_tag 1.21.3
+%define version_tag 1.33.2
 
 Name:	grpc
-Version: 1.21.3
+Version: 1.33.2
 Release: 1.ives%{?dist}
 Summary: Google RPC framework
 
 Group: Development/Library
 License: Apache 2.0
 URL: https://grpc.io/
-Source0: https://github.com/grpc/grpc/archive/v1.11.1.tar.gz
+Source0: https://github.com/grpc/grpc/archive/v1.33.2.tar.gz
 Source1: https://github.com/InteractiviteVideoEtSystemes/googlespeechapi/raw/master/Makefile.grpc
 
 BuildRequires: protobuf-devel, gtest-devel, gperftools-devel
