@@ -1,7 +1,7 @@
-%define version_tag 1.33.2
+%define version_tag 1.26.0
 
 Name:	grpc
-Version: 1.33.2
+Version: 1.26.0
 Release: 1.ives%{?dist}
 Summary: Google RPC framework
 
@@ -25,14 +25,13 @@ Requires: %{name}
 Google RPC framework headers
 
 %prep
-
 cd $RPM_SOURCE_DIR
 rm -rf grpc-* v*
-wget https://github.com/grpc/grpc/archive/v%{version_tag}.tar.gz
+wget --no-check-certificate https://github.com/grpc/grpc/archive/v%{version_tag}.tar.gz
 tar xzf v%{version_tag}.tar.gz
 cd $RPM_SOURCE_DIR/grpc-%{version_tag}
-wget https://github.com/InteractiviteVideoEtSystemes/googlespeechapi/raw/master/gprc-makefile.patch
-patch -p0 < gprc-makefile.patch
+#wget --no-check-certificate https://github.com/InteractiviteVideoEtSystemes/googlespeechapi/raw/master/gprc-makefile.patch
+patch -p0 < $RPM_SOURCE_DIR/gprc-makefile.patch
 #rm -f Makefile
 #mv Makefile.grpc Makefile
 
@@ -57,8 +56,6 @@ sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/usr/local/lib/pkgconfig/grpc++_u
 /usr/local/lib/libgrpc_cronet.so.*
 /usr/local/lib/libgrpc_unsecure.so
 /usr/local/lib/libgrpc_unsecure.so.*
-/usr/local/lib/libgrpc++_cronet.so
-/usr/local/lib/libgrpc++_cronet.so.*
 /usr/local/lib/libgrpc++_error_details.so
 /usr/local/lib/libgrpc++_error_details.so.*
 /usr/local/lib/libgrpc++_reflection.so
@@ -76,10 +73,12 @@ sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/usr/local/lib/pkgconfig/grpc++_u
 /usr/local/share/grpc/roots.pem
 /usr/local/lib/libgrpcpp_channelz.so
 /usr/local/lib/libgrpcpp_channelz.so.*
+/usr/local/lib/libupb.so
+/usr/local/lib/libupb.so.*
 
 %files devel
+/usr/local/lib/libupb.a
 /usr/local/lib/libgrpc++.a
-/usr/local/lib/libgrpc++_cronet.a
 /usr/local/lib/libgrpc++_error_details.a
 /usr/local/lib/libgrpc++_reflection.a
 /usr/local/lib/libgrpc++_unsecure.a
