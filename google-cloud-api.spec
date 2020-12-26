@@ -16,11 +16,12 @@ Google API libraries based on gRPC
 cd $RPM_SOURCE_DIR
 rm -rf googleapis
 git clone git@github.com:googleapis/googleapis.git
+#git clone https://github.com/googleapis/googleapis.git
 cd googleapis
 # DEc 2019
 git checkout 192c14029861752a911ed434fd6ee5b850517cd9
 # git checkout 84c8ad4e52f8eec8f08a60636cfa597b86969b5c
-wget https://github.com/InteractiviteVideoEtSystemes/googlespeechapi/raw/master/Makefile.libgoogleapis
+wget --no-check-certificate https://github.com/InteractiviteVideoEtSystemes/googlespeechapi/raw/master/Makefile.libgoogleapis
 
 %build
 cd $RPM_SOURCE_DIR
