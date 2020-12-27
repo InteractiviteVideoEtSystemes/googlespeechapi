@@ -46,8 +46,8 @@ cp -rp gens/* $RPM_BUILD_ROOT/usr/local/google/apis/
 %doc
 
 %clean
-#cd $RPM_SOURCE_DIR
-#rm -rf googleapis
+cd $RPM_SOURCE_DIR
+rm -rf googleapis
 
 %changelog
 
