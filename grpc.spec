@@ -2,7 +2,7 @@
 
 Name:	grpc
 Version: 1.26.0
-Release: 1.ives%{?dist}
+Release: 2.ives%{?dist}
 Summary: Google RPC framework
 
 Group: Development/Library
@@ -37,17 +37,19 @@ patch -p0 < $RPM_SOURCE_DIR/gprc-makefile.patch
 
 %build
 cd $RPM_SOURCE_DIR/grpc-%{version_tag}
-make prefix=%{buildroot}/usr/local
+make prefix=${HOME}/usr/local
 
 
 %install
 cd $RPM_SOURCE_DIR/grpc-%{version_tag}
-make install prefix=%{buildroot}/usr/local
-sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/usr/local/lib/pkgconfig/gpr.pc
-sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/usr/local/lib/pkgconfig/grpc.pc
-sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/usr/local/lib/pkgconfig/grpc++.pc
-sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/usr/local/lib/pkgconfig/grpc_unsecure.pc
-sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/usr/local/lib/pkgconfig/grpc++_unsecure.pc
+make install prefix=${HOME}/usr/local
+sed -i "s|${HOME}||g" $HOME/usr/local/lib/pkgconfig/gpr.pc
+sed -i "s|${HOME}||g" $HOME/usr/local/lib/pkgconfig/grpc.pc
+sed -i "s|${HOME}||g" $HOME/usr/local/lib/pkgconfig/grpc++.pc
+sed -i "s|${HOME}||g" $HOME/usr/local/lib/pkgconfig/grpc_unsecure.pc
+sed -i "s|${HOME}||g" $HOME/usr/local/lib/pkgconfig/grpc++_unsecure.pc
+mkdir -p $RPM_BUILD_ROOT/usr/local/
+cp -rp $HOME/usr/local/* $RPM_BUILD_ROOT/usr/local/
 
 %files
 /usr/local/lib/libgrpc++.so
@@ -98,6 +100,7 @@ sed -i "s|${RPM_BUILD_ROOT}||g" $RPM_BUILD_ROOT/usr/local/lib/pkgconfig/grpc++_u
 cd $RPM_SOURCE_DIR
 rm -rf grpc*
 rm -f v%{version}.*
+rm -rf $HOME/usr/local
 
 %post
 rm -f /usr/local/lib/libgrpc++.so.1 /usr/local/lib/libgrpc++_reflection.so.1
