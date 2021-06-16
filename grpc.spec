@@ -32,7 +32,7 @@ cd grpc
 git checkout v1.28.2
 git submodule update --init third_party/abseil-cpp
 git submodule update --init third_party/protobuf
-patch -p0 < $RPM_SOURCE_DIR/gprc-makefile.patch
+patch -p0 < $RPM_SOURCE_DIR/grpc-makefile.patch
 
 %build
 cd $RPM_SOURCE_DIR/grpc
