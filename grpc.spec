@@ -1,14 +1,14 @@
-%define version_tag 1.26.0
+%define version_tag 1.28.2
 
 Name:	grpc
-Version: 1.26.0
-Release: 2.ives%{?dist}
+Version: 1.28.2
+Release: 1.ives%{?dist}
 Summary: Google RPC framework
 
 Group: Development/Library
 License: Apache 2.0
 URL: https://grpc.io/
-Source0: https://github.com/grpc/grpc/archive/v1.26.0.tar.gz
+Source0: https://github.com/grpc/grpc/archive/v1.28.2.tar.gz
 Source1: https://github.com/InteractiviteVideoEtSystemes/googlespeechapi/raw/master/Makefile.grpc
 
 BuildRequires: protobuf-devel, gtest-devel, gperftools-devel
@@ -26,86 +26,84 @@ Google RPC framework headers
 
 %prep
 cd $RPM_SOURCE_DIR
-rm -rf grpc-* v*
-wget --no-check-certificate https://github.com/grpc/grpc/archive/v%{version_tag}.tar.gz
-tar xzf v%{version_tag}.tar.gz
-cd $RPM_SOURCE_DIR/grpc-%{version_tag}
-#wget --no-check-certificate https://github.com/InteractiviteVideoEtSystemes/googlespeechapi/raw/master/gprc-makefile.patch
+rm -rf grpc* $HOME/usr/*
+git clone https://github.com/grpc/grpc.git
+git checkout v1.28.2
+git submodule update --init third_party/abseil-cpp
+git submodule update --init third_party/protobuf
 patch -p0 < $RPM_SOURCE_DIR/gprc-makefile.patch
-#rm -f Makefile
-#mv Makefile.grpc Makefile
 
 %build
-cd $RPM_SOURCE_DIR/grpc-%{version_tag}
-make prefix=${HOME}/usr/local
+cd $RPM_SOURCE_DIR/grpc
+make prefix=${HOME}/usr
 
 
 %install
-cd $RPM_SOURCE_DIR/grpc-%{version_tag}
-make install prefix=${HOME}/usr/local
-sed -i "s|${HOME}||g" $HOME/usr/local/lib/pkgconfig/gpr.pc
-sed -i "s|${HOME}||g" $HOME/usr/local/lib/pkgconfig/grpc.pc
-sed -i "s|${HOME}||g" $HOME/usr/local/lib/pkgconfig/grpc++.pc
-sed -i "s|${HOME}||g" $HOME/usr/local/lib/pkgconfig/grpc_unsecure.pc
-sed -i "s|${HOME}||g" $HOME/usr/local/lib/pkgconfig/grpc++_unsecure.pc
-mkdir -p $RPM_BUILD_ROOT/usr/local/
-cp -rp $HOME/usr/local/* $RPM_BUILD_ROOT/usr/local/
+cd $RPM_SOURCE_DIR/grpc
+make install prefix=${HOME}/usr
+sed -i "s|${HOME}||g" $HOME%{_libdir}/pkgconfig/gpr.pc
+sed -i "s|${HOME}||g" $HOME%{_libdir}/pkgconfig/grpc.pc
+sed -i "s|${HOME}||g" $HOME%{_libdir}/pkgconfig/grpc++.pc
+sed -i "s|${HOME}||g" $HOME%{_libdir}/pkgconfig/grpc_unsecure.pc
+sed -i "s|${HOME}||g" $HOME%{_libdir}/pkgconfig/grpc++_unsecure.pc
+mkdir -p $RPM_BUILD_ROOT/usr/
+cp -rp $HOME/usr/* $RPM_BUILD_ROOT/usr/
 
 %files
-/usr/local/lib/libgrpc++.so
-/usr/local/lib/libgrpc++.so.*
-/usr/local/lib/libgrpc_cronet.so
-/usr/local/lib/libgrpc_cronet.so.*
-/usr/local/lib/libgrpc_unsecure.so
-/usr/local/lib/libgrpc_unsecure.so.*
-/usr/local/lib/libgrpc++_error_details.so
-/usr/local/lib/libgrpc++_error_details.so.*
-/usr/local/lib/libgrpc++_reflection.so
-/usr/local/lib/libgrpc++_reflection.so.*
-/usr/local/lib/libgrpc++_unsecure.so
-/usr/local/lib/libgrpc++_unsecure.so.*
-/usr/local/lib/pkgconfig/*.pc
-/usr/local/lib/libgpr.so
-/usr/local/lib/libgpr.so.*
-/usr/local/lib/libgrpc.so
-/usr/local/lib/libgrpc.so.*
-/usr/local/lib/libaddress_sorting.so
-/usr/local/lib/libaddress_sorting.so.*
-/usr/local/bin/grpc_*
-/usr/local/share/grpc/roots.pem
-/usr/local/lib/libgrpcpp_channelz.so
-/usr/local/lib/libgrpcpp_channelz.so.*
-/usr/local/lib/libupb.so
-/usr/local/lib/libupb.so.*
+%{_libdir}/libgrpc++.so
+%{_libdir}/libgrpc++.so.*
+%{_libdir}/libgrpc_cronet.so
+%{_libdir}/libgrpc_cronet.so.*
+%{_libdir}/libgrpc_unsecure.so
+%{_libdir}/libgrpc_unsecure.so.*
+%{_libdir}/libgrpc++_error_details.so
+%{_libdir}/libgrpc++_error_details.so.*
+%{_libdir}/libgrpc++_reflection.so
+%{_libdir}/libgrpc++_reflection.so.*
+%{_libdir}/libgrpc++_unsecure.so
+%{_libdir}/libgrpc++_unsecure.so.*
+%{_libdir}/pkgconfig/*.pc
+%{_libdir}/libgpr.so
+%{_libdir}/libgpr.so.*
+%{_libdir}/libgrpc.so
+%{_libdir}/libgrpc.so.*
+%{_libdir}/libaddress_sorting.so
+%{_libdir}/libaddress_sorting.so.*
+/usr/bin/grpc_*
+/usr/share/grpc/roots.pem
+%{_libdir}/libgrpcpp_channelz.so
+%{_libdir}/libgrpcpp_channelz.so.*
+%{_libdir}/libupb.so
+%{_libdir}/libupb.so.*
 
 %files devel
-/usr/local/lib/libupb.a
-/usr/local/lib/libgrpc++.a
-/usr/local/lib/libgrpc++_error_details.a
-/usr/local/lib/libgrpc++_reflection.a
-/usr/local/lib/libgrpc++_unsecure.a
-/usr/local/lib/libgpr.a
-/usr/local/lib/libgrpc.a
-/usr/local/lib/libaddress_sorting.a
-/usr/local/lib/libgrpc_cronet.a
-/usr/local/lib/libgrpc_unsecure.a
-/usr/local/lib/libgrpcpp_channelz.a
-/usr/local/include/grpc/
-/usr/local/include/grpc++/
-/usr/local/include/grpcpp/
+%{_libdir}/libupb.a
+%{_libdir}/libgrpc++.a
+%{_libdir}/libgrpc++_error_details.a
+%{_libdir}/libgrpc++_reflection.a
+%{_libdir}/libgrpc++_unsecure.a
+%{_libdir}/libgpr.a
+%{_libdir}/libgrpc.a
+%{_libdir}/libaddress_sorting.a
+%{_libdir}/libgrpc_cronet.a
+%{_libdir}/libgrpc_unsecure.a
+%{_libdir}/libgrpcpp_channelz.a
+/usr/include/grpc/
+/usr/include/grpc++/
+/usr/include/grpcpp/
 
 %doc
 
 %clean
 cd $RPM_SOURCE_DIR
 rm -rf grpc*
-rm -f v%{version}.*
-rm -rf $HOME/usr/local
+
+rm -rf $HOME/usr
 
 %post
-rm -f /usr/local/lib/libgrpc++.so.1 /usr/local/lib/libgrpc++_reflection.so.1
-ln -s /usr/local/lib/libgrpc++.so.%{version} /usr/local/lib/libgrpc++.so.1
-ln -s /usr/local/lib/libgrpc++_reflection.so.%{version} /usr/local/lib/libgrpc++_reflection.so.1
+#rm -f %{_libdir}/libgrpc++.so.1 %{_libdir}/libgrpc++_reflection.so.1
+#ln -s %{_libdir}/libgrpc++.so.%{version} %{_libdir}/libgrpc++.so.1
+#ln -s %{_libdir}/libgrpc++_reflection.so.%{version} %{_libdir}/libgrpc++_reflection.so.1
 
 %changelog
 
