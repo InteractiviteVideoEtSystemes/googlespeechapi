@@ -26,7 +26,7 @@ Google RPC framework headers
 
 %prep
 cd $RPM_SOURCE_DIR
-rm -rf grpc* $HOME/usr/*
+rm -rf grpc $HOME/usr/*
 git clone https://github.com/grpc/grpc.git
 cd grpc
 git checkout v1.28.2
@@ -70,6 +70,8 @@ cp -rp $HOME/usr/* $RPM_BUILD_ROOT/usr/
 %{_libdir}/libgrpc.so.*
 %{_libdir}/libaddress_sorting.so
 %{_libdir}/libaddress_sorting.so.*
+%{_libdir}/libgrpc++_alts.so
+%{_libdir}/libgrpc++_alts.so.*
 /usr/bin/grpc_*
 /usr/share/grpc/roots.pem
 %{_libdir}/libgrpcpp_channelz.so
@@ -79,16 +81,12 @@ cp -rp $HOME/usr/* $RPM_BUILD_ROOT/usr/
 
 %files devel
 %{_libdir}/libupb.a
-%{_libdir}/libgrpc++.a
-%{_libdir}/libgrpc++_error_details.a
-%{_libdir}/libgrpc++_reflection.a
-%{_libdir}/libgrpc++_unsecure.a
+%{_libdir}/libaddress_sorting.a
 %{_libdir}/libgpr.a
 %{_libdir}/libgrpc.a
-%{_libdir}/libaddress_sorting.a
-%{_libdir}/libgrpc_cronet.a
 %{_libdir}/libgrpc_unsecure.a
-%{_libdir}/libgrpcpp_channelz.a
+%{_libdir}/libgrpc_cronet.a
+
 /usr/include/grpc/
 /usr/include/grpc++/
 /usr/include/grpcpp/
