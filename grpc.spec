@@ -28,6 +28,7 @@ Google RPC framework headers
 cd $RPM_SOURCE_DIR
 rm -rf grpc* $HOME/usr/*
 git clone https://github.com/grpc/grpc.git
+cd grpc
 git checkout v1.28.2
 git submodule update --init third_party/abseil-cpp
 git submodule update --init third_party/protobuf
@@ -35,12 +36,12 @@ patch -p0 < $RPM_SOURCE_DIR/gprc-makefile.patch
 
 %build
 cd $RPM_SOURCE_DIR/grpc
-make prefix=${HOME}/usr
+make prefix=${HOME}/usr targetlibdir=%{_lib}
 
 
 %install
 cd $RPM_SOURCE_DIR/grpc
-make install prefix=${HOME}/usr
+make install prefix=${HOME}/usr targetlibdir=%{_lib}
 sed -i "s|${HOME}||g" $HOME%{_libdir}/pkgconfig/gpr.pc
 sed -i "s|${HOME}||g" $HOME%{_libdir}/pkgconfig/grpc.pc
 sed -i "s|${HOME}||g" $HOME%{_libdir}/pkgconfig/grpc++.pc
