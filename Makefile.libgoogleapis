@@ -51,6 +51,7 @@ libgoogleapis.a: $(GOOGLEAPIS_CCS:.cc=.o)
 
 
 clean:
+	echo $(GOOGLEAPIS_GENS_PATH)
 	rm -f *.o libgoogleapis.a \
 		$(GOOGLEAPIS_CCS:.cc=.o)
 

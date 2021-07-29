@@ -1,7 +1,7 @@
 diff --git a/Makefile b/Makefile
 index 11ce476..7d9a494 100644
---- a/Makefile
-+++ b/Makefile
+--- Makefile.ori
++++ Makefile
 @@ -246,6 +246,7 @@ DEFINES_counters = NDEBUG
  # You may want to change these depending on your system.
  
