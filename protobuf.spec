@@ -1,5 +1,5 @@
 Name:	protobuf
-Version: 3.8.0	
+Version: 3.17.3	
 Release: 1.ives%{?dist}
 Summary: RPC base API for Google Cloud speech services	
 
@@ -21,7 +21,7 @@ All headers needed to use Google protobuf lib
 %prep
 cd $RPM_SOURCE_DIR
 rm -rf protobuf-*
-wget https://github.com/google/protobuf/releases/download/v%{version}/protobuf-all-%{version}.tar.gz
+wget https://github.com/protocolbuffers/protobuf/releases/download/v%{version}/protobuf-all-%{version}.tar.gz
 tar xzf protobuf-all-%{version}.tar.gz
 cd protobuf-%{version}
 ./configure --prefix=/usr --libdir=%{_libdir}
@@ -42,11 +42,9 @@ make install DESTDIR=%{buildroot}
 /usr/bin/protoc
 %{_libdir}/libprotoc.*
 %{_libdir}/libprotobuf-lite.so
-%{_libdir}/libprotobuf-lite.so.19
-%{_libdir}/libprotobuf-lite.so.19.0.0
+%{_libdir}/libprotobuf-lite.so.*
 %{_libdir}/libprotobuf.so
-%{_libdir}/libprotobuf.so.19
-%{_libdir}/libprotobuf.so.19.0.0
+%{_libdir}/libprotobuf.so.*
 %{_libdir}/pkgconfig/protobuf.pc
 %{_libdir}/pkgconfig/protobuf-lite.pc
 

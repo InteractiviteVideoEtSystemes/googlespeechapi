@@ -2,7 +2,7 @@
 
 Name:	grpc
 Version: 1.28.2
-Release: 1.ives%{?dist}
+Release: 2.ives%{?dist}
 Summary: Google RPC framework
 
 Group: Development/Library
