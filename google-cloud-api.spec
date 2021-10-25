@@ -8,6 +8,8 @@ License: Google
 URL: https://github.com/googleapis/googleapis
 BuildRequires: protobuf = 3.17.3
 BuildRequires: protobuf-devel = 3.17.3
+Requires: grpc = 1.28.2
+BuildRequires: grpc-devel = 1.28.2
 
 
 %description
