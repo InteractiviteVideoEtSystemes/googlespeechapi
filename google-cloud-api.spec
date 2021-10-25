@@ -6,8 +6,8 @@ Summary: RPC base API for Google Cloud speech services
 Group: Application/Development
 License: Google
 URL: https://github.com/googleapis/googleapis
-BuildRequires: protobuf-3.17.3
-BuildRequires: protobuf-devel-3.17.3
+BuildRequires: protobuf = 3.17.3
+BuildRequires: protobuf-devel = 3.17.3
 
 
 %description
