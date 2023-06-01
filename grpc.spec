@@ -6,23 +6,15 @@ Release: 1.ives%{?dist}
 Summary: Google RPC framework
 
 Group: Development/Library
+Conflicts: protobuf c-ares
 License: Apache 2.0
 URL: https://grpc.io/
-Source0: https://github.com/grpc/grpc/archive/v1.28.2.tar.gz
-Source1: https://github.com/InteractiviteVideoEtSystemes/googlespeechapi/raw/master/Makefile.grpc
 
-BuildRequires: protobuf-devel, gtest-devel, gperftools-devel
 
 
 %description
-Google speech API compiled with all its dependencies
+Static GRPC library from Google and complication headers. Packages dependencies such as ABSEIL, C-ARES and prototol buffer
 
-%package devel
-Summary: Header and static lib for GRPC library
-Requires: %{name}
-
-%description devel
-Google RPC framework headers
 
 %prep
 cd $RPM_SOURCE_DIR
