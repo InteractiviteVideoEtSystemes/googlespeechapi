@@ -40,74 +40,52 @@ cmake3 . -DCMAKE_CXX_STANDARD=14 -DCMAKE_INSTALL_LIBDIR=lib64 -DCMAKE_INSTALL_PR
 
 %build
 cd $RPM_SOURCE_DIR/grpc
-cmake3 --build . -j4
+cmake3 --build .
 
 
 %install
 cd $RPM_SOURCE_DIR/grpc
 cmake3 --install . --prefix %{buildroot}/usr -DCMAKE_INSTALL_LIBDIR=lib64
 
-sed -i "s|${HOME}||g" $HOME%{_libdir}/pkgconfig/gpr.pc
-sed -i "s|${HOME}||g" $HOME%{_libdir}/pkgconfig/grpc.pc
-sed -i "s|${HOME}||g" $HOME%{_libdir}/pkgconfig/grpc++.pc
-sed -i "s|${HOME}||g" $HOME%{_libdir}/pkgconfig/grpc_unsecure.pc
-sed -i "s|${HOME}||g" $HOME%{_libdir}/pkgconfig/grpc++_unsecure.pc
-mkdir -p $RPM_BUILD_ROOT/usr/
-cp -rp $HOME/usr/* $RPM_BUILD_ROOT/usr/
-
 %files
-%{_libdir}/libgrpc++.so
-%{_libdir}/libgrpc++.so.*
-%{_libdir}/libgrpc_cronet.so
-%{_libdir}/libgrpc_cronet.so.*
-%{_libdir}/libgrpc_unsecure.so
-%{_libdir}/libgrpc_unsecure.so.*
-%{_libdir}/libgrpc++_error_details.so
-%{_libdir}/libgrpc++_error_details.so.*
-%{_libdir}/libgrpc++_reflection.so
-%{_libdir}/libgrpc++_reflection.so.*
-%{_libdir}/libgrpc++_unsecure.so
-%{_libdir}/libgrpc++_unsecure.so.*
 %{_libdir}/pkgconfig/*.pc
-%{_libdir}/libgpr.so
-%{_libdir}/libgpr.so.*
-%{_libdir}/libgrpc.so
-%{_libdir}/libgrpc.so.*
-%{_libdir}/libaddress_sorting.so
-%{_libdir}/libaddress_sorting.so.*
-%{_libdir}/libgrpc++_alts.so
-%{_libdir}/libgrpc++_alts.so.*
+%{_libdir}/lib*.a
+%{_libdir}/cmake/
+
+#Do not package ARES bins
+%exclude /usr/bin/acountry
+%exclude /usr/bin/adig
+%exclude /usr/bin/ahost
+
+# GRPC plugin
 /usr/bin/grpc_*
+
+# Protobuf compilers
+
+/usr/bin/protoc
+/usr/bin/protoc-23.1.0
 /usr/share/grpc/roots.pem
-%{_libdir}/libgrpcpp_channelz.so
-%{_libdir}/libgrpcpp_channelz.so.*
-%{_libdir}/libupb.so
-%{_libdir}/libupb.so.*
 
-%files devel
-%{_libdir}/libupb.a
-%{_libdir}/libaddress_sorting.a
-%{_libdir}/libgpr.a
-%{_libdir}/libgrpc.a
-%{_libdir}/libgrpc_unsecure.a
-%{_libdir}/libgrpc_cronet.a
-
+# Headers
+/usr/include/absl/
 /usr/include/grpc/
 /usr/include/grpc++/
 /usr/include/grpcpp/
+/usr/include/re2/
+/usr/include/google/
+/usr/include/ares.h
+/usr/include/ares_build.h
+/usr/include/ares_dns.h
+/usr/include/ares_rules.h
+/usr/include/ares_version.h
+/usr/include/utf8_range.h
+/usr/include/utf8_validity.h
 
-%doc
+%doc /usr/share/man/
 
 %clean
 cd $RPM_SOURCE_DIR
-rm -rf grpc*
-
-rm -rf $HOME/usr
-
-%post
-#rm -f %{_libdir}/libgrpc++.so.1 %{_libdir}/libgrpc++_reflection.so.1
-#ln -s %{_libdir}/libgrpc++.so.%{version} %{_libdir}/libgrpc++.so.1
-#ln -s %{_libdir}/libgrpc++_reflection.so.%{version} %{_libdir}/libgrpc++_reflection.so.1
+rm -rf grpc
 
 %changelog
 
