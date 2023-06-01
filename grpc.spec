@@ -1,8 +1,8 @@
-%define version_tag 1.28.2
+%define version_tag 1.55.0
 
 Name:	grpc
-Version: 1.28.2
-Release: 2.ives%{?dist}
+Version: 1.55.0
+Release: 1.ives%{?dist}
 Summary: Google RPC framework
 
 Group: Development/Library
@@ -27,21 +27,26 @@ Google RPC framework headers
 %prep
 cd $RPM_SOURCE_DIR
 rm -rf grpc $HOME/usr/*
-git clone https://github.com/grpc/grpc.git
+git clone https://github.com/grpc/grpc.git --branch=v%{version}
 cd grpc
-git checkout v1.28.2
-git submodule update --init third_party/abseil-cpp
-git submodule update --init third_party/protobuf
-patch -p0 < $RPM_SOURCE_DIR/grpc-makefile.patch
+git submodule update --init --recursive third_party/protobuf
+git submodule update --init --recursive third_party/abseil-cpp
+git submodule update --init --recursive third_party/cares
+git submodule update --init --recursive third_party/re2
+git submodule update --init --recursive third_party/boringssl-with-bazel
+cmake3 . -DCMAKE_CXX_STANDARD=14 -DCMAKE_INSTALL_LIBDIR=lib64 -DCMAKE_INSTALL_PREFIX=/usr -DgRPC_INSTALL_LIBDIR=lib64
+
+#patch -p0 < $RPM_SOURCE_DIR/grpc-makefile.patch
 
 %build
 cd $RPM_SOURCE_DIR/grpc
-make prefix=${HOME}/usr targetlibdir=%{_lib}
+cmake3 --build . -j4
 
 
 %install
 cd $RPM_SOURCE_DIR/grpc
-make install prefix=${HOME}/usr targetlibdir=%{_lib}
+cmake3 --install . --prefix %{buildroot}/usr -DCMAKE_INSTALL_LIBDIR=lib64
+
 sed -i "s|${HOME}||g" $HOME%{_libdir}/pkgconfig/gpr.pc
 sed -i "s|${HOME}||g" $HOME%{_libdir}/pkgconfig/grpc.pc
 sed -i "s|${HOME}||g" $HOME%{_libdir}/pkgconfig/grpc++.pc
