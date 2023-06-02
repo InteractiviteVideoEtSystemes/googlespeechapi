@@ -32,7 +32,7 @@ HOST_SYSTEM = $(shell uname | cut -f 1 -d_)
 SYSTEM ?= $(HOST_SYSTEM)
 CXX = g++
 CPPFLAGS += -I/usr/local/include -pthread -I$(GOOGLEAPIS_GENS_PATH)
-CXXFLAGS += -std=c++11 -fPIC
+CXXFLAGS += -std=c++14 -fPIC
 ifeq ($(SYSTEM),Darwin)
 LDFLAGS += -L/usr/local/lib `pkg-config --libs grpc++ grpc`       \
            -lgrpc++_reflection                                    \
