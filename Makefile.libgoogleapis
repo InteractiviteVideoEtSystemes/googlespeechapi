@@ -18,20 +18,22 @@ GOOGLEAPIS_RPC_CCS = $(shell find $(GOOGLEAPIS_GENS_PATH)/google/rpc \
 	-name '*.pb.cc')
 GOOGLEAPIS_SPEECH_CCS = $(shell find \
 	$(GOOGLEAPIS_GENS_PATH)/google/cloud/speech/v1p1beta1 -name '*.pb.cc')
+GOOGLEAPIS_SPEECH_CCS_V1 = $(shell find \
+	$(GOOGLEAPIS_GENS_PATH)/google/cloud/speech/v1 -name '*.pb.cc')
 GOOGLEAPIS_TEXTTOSPEECH_CCS = $(shell find \
 	$(GOOGLEAPIS_GENS_PATH)/google/cloud/texttospeech/v1beta1 -name '*.pb.cc')
-GOOGLEAPIS_DIALOGFLOW_CCS = $(shell find \
-	$(GOOGLEAPIS_GENS_PATH)/google/cloud/speech/v2beta1 -name '*.pb.cc')
+#GOOGLEAPIS_DIALOGFLOW_CCS = $(shell find \
+#	$(GOOGLEAPIS_GENS_PATH)/google/cloud/speech/v2 -name '*.pb.cc')
 GOOGLEAPIS_LONGRUNNING_CCS = $(shell find \
 	$(GOOGLEAPIS_GENS_PATH)/google/longrunning -name '*.pb.cc')
 GOOGLEAPIS_CCS = $(GOOGLEAPIS_API_CCS) $(GOOGLEAPIS_RPC_CCS) \
 	$(GOOGLEAPIS_LONGRUNNING_CCS) $(GOOGLEAPIS_SPEECH_CCS) \
-  $(GOOGLEAPIS_TEXTTOSPEECH_CCS) $(GOOGLEAPIS_DIALOGFLOW_CCS)
+  $(GOOGLEAPIS_TEXTTOSPEECH_CCS) $(GOOGLEAPIS_SPEECH_CCS_V1)
 
 HOST_SYSTEM = $(shell uname | cut -f 1 -d_)
 SYSTEM ?= $(HOST_SYSTEM)
 CXX = g++
-CPPFLAGS += -I/usr/local/include -pthread -I$(GOOGLEAPIS_GENS_PATH)
+CPPFLAGS += -I$(GOOGLEAPIS_GENS_PATH)
 CXXFLAGS += -std=c++14 -fPIC
 ifeq ($(SYSTEM),Darwin)
 LDFLAGS += -L/usr/local/lib `pkg-config --libs grpc++ grpc`       \
@@ -49,6 +51,12 @@ all: libgoogleapis.a
 libgoogleapis.a: $(GOOGLEAPIS_CCS:.cc=.o)
 	ar r $@ $?
 
+install: all
+	rm -rf $(DESTDIR)/usr/google/apis
+	mkdir -p $(DESTDIR)/usr/google/apis
+	cp -rp gens/* $(DESTDIR)/usr/google/apis/
+	find $(DESTDIR)/usr/google/apis/ -name '*.pb.cc' -exec rm \{\} \;
+	echo "Google API headers installed"
 
 clean:
 	echo $(GOOGLEAPIS_GENS_PATH)
