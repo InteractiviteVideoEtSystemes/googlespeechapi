@@ -39,7 +39,7 @@ cp libgoogleapis.a %{buildroot}/opt/google/%{_lib}
 make -f Makefile.libgoogleapis install GOOGLEAPIS_GENS_PATH=./gens DESTDIR=%{buildroot}
 
 %clean
-rm -rf %{_builddir}/googleapis-%{googleapis_commit_id}/ %{_sourcedir}/Makefile.libgoogleapis
+rm -rf %{_builddir}/googleapis-%{googleapis_commit_id}/ %{_sourcedir}/Makefile.libgoogleapis %{_sourcedir}/%{googleapis_commit_id}.zip
 
 %files
 /opt/google/%{_lib}/libgoogleapis.a
