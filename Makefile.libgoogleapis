@@ -33,7 +33,7 @@ GOOGLEAPIS_CCS = $(GOOGLEAPIS_API_CCS) $(GOOGLEAPIS_RPC_CCS) \
 HOST_SYSTEM = $(shell uname | cut -f 1 -d_)
 SYSTEM ?= $(HOST_SYSTEM)
 CXX = g++
-CPPFLAGS += -I$(GOOGLEAPIS_GENS_PATH)
+CPPFLAGS += -I$(GOOGLEAPIS_GENS_PATH) -I/opt/google/include
 CXXFLAGS += -std=c++14 -fPIC
 
 .PHONY: all
