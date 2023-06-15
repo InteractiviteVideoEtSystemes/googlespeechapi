@@ -35,15 +35,6 @@ SYSTEM ?= $(HOST_SYSTEM)
 CXX = g++
 CPPFLAGS += -I$(GOOGLEAPIS_GENS_PATH)
 CXXFLAGS += -std=c++14 -fPIC
-ifeq ($(SYSTEM),Darwin)
-LDFLAGS += -L/usr/local/lib `pkg-config --libs grpc++ grpc`       \
-           -lgrpc++_reflection                                    \
-           -lprotobuf -lpthread -ldl
-else
-LDFLAGS += -L/usr/local/lib `pkg-config --libs grpc++ grpc`       \
-           -Wl,--no-as-needed -lgrpc++_reflection -Wl,--as-needed \
-           -lprotobuf -lpthread -ldl
-endif
 
 .PHONY: all
 all: libgoogleapis.a
@@ -52,10 +43,10 @@ libgoogleapis.a: $(GOOGLEAPIS_CCS:.cc=.o)
 	ar r $@ $?
 
 install: all
-	rm -rf $(DESTDIR)/usr/google/apis
-	mkdir -p $(DESTDIR)/usr/google/apis
-	cp -rp gens/* $(DESTDIR)/usr/google/apis/
-	find $(DESTDIR)/usr/google/apis/ -name '*.pb.cc' -exec rm \{\} \;
+	rm -rf $(DESTDIR)/opt/google/include/googleapis
+	mkdir -p $(DESTDIR)/opt/google/include/googleapis
+	cp -rp gens/* $(DESTDIR)/opt/google/include/googleapis
+	find $(DESTDIR)/opt/google/include/googleapis -name '*.pb.cc' -exec rm \{\} \;
 	echo "Google API headers installed"
 
 clean:
