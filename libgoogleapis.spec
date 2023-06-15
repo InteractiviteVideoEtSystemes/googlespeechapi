@@ -13,10 +13,9 @@ URL:            https://github.com/googleapis/googleapis
 Packager:       IVeS
 
 Source0:       	https://github.com/googleapis/googleapis/archive/%{googleapis_commit_id}.zip
-#Source1:        https://raw.githubusercontent.com/InteractiviteVideoEtSystemes/googlespeechapi/%{version}/Makefile.libgoogleapis
-Source1:        https://raw.githubusercontent.com/InteractiviteVideoEtSystemes/googlespeechapi/fix/grpc-upgrade/Makefile.libgoogleapis
+Source1:        https://raw.githubusercontent.com/InteractiviteVideoEtSystemes/googlespeechapi/%{version}/Makefile.libgoogleapis
 
-#BuildRequires:  grpc-devel = 1.55.0
+BuildRequires:  grpc-devel = 1.55.0
 BuildRequires:  git
 BuildRequires:  devtoolset-7
 
