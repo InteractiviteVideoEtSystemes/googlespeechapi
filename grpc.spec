@@ -1,83 +1,92 @@
-%define version_tag 1.55.0
+%define         github_name grpc
 
-Name:	grpc
-Version: 1.55.0
-Release: 1.ives%{?dist}
-Summary: Google RPC framework
+Name:	        grpc-devel
+Version:        1.55.0
+Release:        1.ives%{?dist}
 
-Group: Development/Library
-Conflicts: protobuf c-ares
-License: Apache 2.0
-URL: https://grpc.io/
+Summary:        Google RPC framework
 
+License:        Apache 2.0
+URL:            https://grpc.io
+Packager:       IVeS
 
+BuildRequires:  cmake3
+BuildRequires:  devtoolset-7
+BuildRequires:  git
+BuildRequires:  gperftools-devel
+BuildRequires:  gtest-devel
 
 %description
-Static GRPC library from Google and complication headers. Packages dependencies such as ABSEIL, C-ARES and prototol buffer
-
+Static GRPC library from Google and complication headers. Packages dependencies such as ABSEIL, C-ARES and prototol buffer.
 
 %prep
-cd $RPM_SOURCE_DIR
-rm -rf grpc $HOME/usr/*
-git clone https://github.com/grpc/grpc.git --branch=v%{version}
-cd grpc
-git submodule update --init --recursive third_party/protobuf
+rm -rf %{_sourcedir}/%{github_name}-%{version}
+# GitHub does not include submodules in assets, we have to use git here instead of source tar.gz
+git clone --single-branch --branch=v%{version} https://github.com/%{github_name}/%{github_name}.git %{_sourcedir}/%{github_name}-%{version}
+cd %{_sourcedir}/%{github_name}-%{version}/
 git submodule update --init --recursive third_party/abseil-cpp
-git submodule update --init --recursive third_party/cares
-git submodule update --init --recursive third_party/re2
 git submodule update --init --recursive third_party/boringssl-with-bazel
-cmake3 . -DCMAKE_CXX_STANDARD=14 -DCMAKE_INSTALL_LIBDIR=lib64 -DCMAKE_INSTALL_PREFIX=/usr -DgRPC_INSTALL_LIBDIR=lib64
-
-#patch -p0 < $RPM_SOURCE_DIR/grpc-makefile.patch
+git submodule update --init --recursive third_party/cares
+git submodule update --init --recursive third_party/protobuf
+git submodule update --init --recursive third_party/re2
+. /opt/rh/devtoolset-7/enable
+cmake3 . -DCMAKE_CXX_STANDARD=14 -DCMAKE_INSTALL_LIBDIR=%{_lib} -DCMAKE_INSTALL_PREFIX=%{_prefix} -DgRPC_INSTALL_LIBDIR=%{_lib} -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF
 
 %build
-cd $RPM_SOURCE_DIR/grpc
-cmake3 --build .
-
+. /opt/rh/devtoolset-7/enable
+cd %{_sourcedir}/%{github_name}-%{version}/
+cmake3 --build . -j 2
 
 %install
-cd $RPM_SOURCE_DIR/grpc
-cmake3 --install . --prefix %{buildroot}/usr -DCMAKE_INSTALL_LIBDIR=lib64
-
-%files
-%{_libdir}/pkgconfig/*.pc
-%{_libdir}/lib*.a
-%{_libdir}/cmake/
-
-#Do not package ARES bins
-%exclude /usr/bin/acountry
-%exclude /usr/bin/adig
-%exclude /usr/bin/ahost
-
-# GRPC plugin
-/usr/bin/grpc_*
-
-# Protobuf compilers
-
-/usr/bin/protoc
-/usr/bin/protoc-23.1.0
-/usr/share/grpc/roots.pem
-
-# Headers
-/usr/include/absl/
-/usr/include/grpc/
-/usr/include/grpc++/
-/usr/include/grpcpp/
-/usr/include/re2/
-/usr/include/google/
-/usr/include/ares.h
-/usr/include/ares_build.h
-/usr/include/ares_dns.h
-/usr/include/ares_rules.h
-/usr/include/ares_version.h
-/usr/include/utf8_range.h
-/usr/include/utf8_validity.h
-
-%doc /usr/share/man/
+. /opt/rh/devtoolset-7/enable
+cd %{_sourcedir}/%{github_name}-%{version}/
+cmake3 --install . --prefix %{buildroot}/opt/google
 
 %clean
-cd $RPM_SOURCE_DIR
-rm -rf grpc
+rm -rf %{_sourcedir}/%{github_name}-%{version}/
 
-%changelog
+%files
+/opt/google/%{_lib}/pkgconfig/*.pc
+/opt/google/%{_lib}/lib*.a
+/opt/google/%{_lib}/cmake/protobuf/
+/opt/google/%{_lib}/cmake/utf8_range/
+/opt/google/%{_lib}/cmake/re2/
+/opt/google/%{_lib}/cmake/c-ares/
+/opt/google/%{_lib}/cmake/absl/
+/opt/google/lib/cmake/grpc/
+/opt/google/lib/cmake/grpc/modules/
 
+# Do not package ARES bins
+%exclude /opt/google/bin/acountry
+%exclude /opt/google/bin/adig
+%exclude /opt/google/bin/ahost
+
+# GRPC plugin
+/opt/google/bin/grpc_*
+
+# Protobuf compilers
+/opt/google/bin/protoc
+/opt/google/bin/protoc-23.1.0
+/opt/google/share/grpc/roots.pem
+
+# Headers
+/opt/google/include/absl/
+/opt/google/include/grpc/
+/opt/google/include/grpc++/
+/opt/google/include/grpcpp/
+/opt/google/include/re2/
+/opt/google/include/google/
+/opt/google/include/ares.h
+/opt/google/include/ares_build.h
+/opt/google/include/ares_dns.h
+/opt/google/include/ares_rules.h
+/opt/google/include/ares_version.h
+/opt/google/include/utf8_range.h
+/opt/google/include/utf8_validity.h
+
+%doc
+# Do not package ARES doc
+%exclude /opt/google/share/man/man1/acountry.1
+%exclude /opt/google/share/man/man1/adig.1
+%exclude /opt/google/share/man/man1/ahost.1
+/opt/google/share/man/man3/ares_*
