@@ -15,6 +15,7 @@ BuildRequires:  devtoolset-7
 BuildRequires:  git
 BuildRequires:  gperftools-devel
 BuildRequires:  gtest-devel
+BuildRequires:  zlib-devel
 
 %description
 Static GRPC library from Google and complication headers. Packages dependencies such as ABSEIL, C-ARES and prototol buffer.
