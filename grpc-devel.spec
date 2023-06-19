@@ -2,7 +2,7 @@
 
 Name:	        grpc-devel
 Version:        1.55.0
-Release:        1.ives%{?dist}
+Release:        2.ives%{?dist}
 
 Summary:        Google RPC framework
 
@@ -21,10 +21,10 @@ BuildRequires:  zlib-devel
 Static GRPC library from Google and complication headers. Packages dependencies such as ABSEIL, C-ARES and prototol buffer.
 
 %prep
-rm -rf %{_sourcedir}/%{github_name}-%{version}
+%{__rm} --recursive --force %{_builddir}/%{github_name}-%{version}
 # GitHub does not include submodules in assets, we have to use git here instead of source tar.gz
-git clone --single-branch --branch=v%{version} https://github.com/%{github_name}/%{github_name}.git %{_sourcedir}/%{github_name}-%{version}
-cd %{_sourcedir}/%{github_name}-%{version}/
+git clone --single-branch --branch=v%{version} https://github.com/%{github_name}/%{github_name}.git %{_builddir}/%{github_name}-%{version}
+cd %{_builddir}/%{github_name}-%{version}/
 git submodule update --init --recursive third_party/abseil-cpp
 git submodule update --init --recursive third_party/boringssl-with-bazel
 git submodule update --init --recursive third_party/cares
@@ -34,17 +34,17 @@ git submodule update --init --recursive third_party/re2
 cmake3 . -DCMAKE_CXX_STANDARD=14 -DCMAKE_INSTALL_LIBDIR=%{_lib} -DCMAKE_INSTALL_PREFIX=%{_prefix} -DgRPC_INSTALL_LIBDIR=%{_lib} -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF
 
 %build
+cd %{_builddir}/%{github_name}-%{version}/
 . /opt/rh/devtoolset-7/enable
-cd %{_sourcedir}/%{github_name}-%{version}/
 cmake3 --build . -j 2
 
 %install
+cd %{_builddir}/%{github_name}-%{version}/
 . /opt/rh/devtoolset-7/enable
-cd %{_sourcedir}/%{github_name}-%{version}/
 cmake3 --install . --prefix %{buildroot}/opt/google
 
 %clean
-rm -rf %{_sourcedir}/%{github_name}-%{version}/
+%{__rm} --recursive --force %{_builddir}/%{github_name}-%{version}/
 
 %files
 /opt/google/%{_lib}/pkgconfig/*.pc
